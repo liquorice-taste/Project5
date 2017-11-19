@@ -1,7 +1,2 @@
-#include "Main.h"
+#include "Game.h"
 
-void MyMain::OnRender() {
-
-	SDL_UpdateWindowSurface(gWindow);
-
-}
