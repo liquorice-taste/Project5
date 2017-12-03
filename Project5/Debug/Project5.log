@@ -1,2 +1,11 @@
-﻿  Project5.vcxproj -> C:\Users\Beautiful\documents\visual studio 2017\Projects\Project5\Debug\Project5.exe
+﻿  Game.cpp
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\eventcontroller.h(48): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\eventcontroller.h(49): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\eventcontroller.h(60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\eventcontroller.h(61): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\eventcontroller.h(72): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\eventcontroller.h(73): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\eventcontroller.h(85): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\eventcontroller.h(86): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Project5.vcxproj -> C:\Users\Beautiful\documents\visual studio 2017\Projects\Project5\Debug\Project5.exe
   Project5.vcxproj -> C:\Users\Beautiful\documents\visual studio 2017\Projects\Project5\Debug\Project5.pdb (Partial PDB)

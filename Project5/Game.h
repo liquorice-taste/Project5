@@ -1,52 +1,52 @@
-#ifndef _DIGGER_MYMAIN_H_
-#define _DIGGER_MYMAIN_H_
+#ifndef PROJECT5_GAME_H_
+#define PROJECT5_GAME_H_
 
-#include <SDL.h>
-#include <SDL_image.h>
-#include <iostream>
 #include <stdio.h>
-//#include <functional>
+// #include <functional>
 #include <map>
 #include <typeinfo>
+#include <SDL.h>
+#include <SDL_image.h>
+#include <vector>
+#include "MovingLogic.h"
 
-#include "TextureManager.h"
-#include "GameCharacter.h"
 
-
+class Entity;
+class CollisionComponent;
 
 class Game {
+ private:
+  SDL_Window* Window;
+  const int FPS = 60;
+  const int FrameDelay = 1000 / 60;
+  Uint32 FrameStart;
+  int FrameTime;
 
-private:
-	bool    running;
-	SDL_Window* Window;
-	SDL_Renderer* Renderer;
+ public:
+  Game();
 
-	const int FPS = 60;
-	const int FrameDelay = 1000 / 60;
-	Uint32 FrameStart;
-	int FrameTime;
-public:
-	Game();
+  bool OnInit();
 
-	bool OnInit();
+  void OnLoop();
 
-	void OnEvent(SDL_Event* Event);
+  void OnRender();
 
-	void OnLoop();
+  void OnCleanup();
 
-	void OnRender();
+  bool isrunning() { return running; }
 
-	void OnCleanup();
+  //static std::vector<CollisionComponent*> colliderlist;
 
-	bool isrunning() {
-		return running;
-	}
-	
+  static Vector2D GetDiggerPos();
+  static void initDigger(const float &x, const float &y);
+  Entity* initEnemy(const float &x, const float &y);
+  static void initGem(const float &x, const float &y);
 
-
-	int OnExecute();
-
-	
+  static std::vector<CollisionComponent*> colliderlist;
+  static bool running;
+  static SDL_Renderer* Renderer;
+  static SDL_Event Event;
+  int OnExecute();
 };
 
-#endif
+#endif  //  PROJECT5_GAME_H_

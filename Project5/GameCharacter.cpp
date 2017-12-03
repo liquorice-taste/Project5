@@ -1,11 +1,10 @@
 #include "GameCharacter.h"
 #include "TextureManager.h"
-
-GameCharacter::GameCharacter(const char* texturesheet, SDL_Renderer* Ren, int x, int y)
+#include "Define.h"
+//#include "Game.h"
+GameCharacter::GameCharacter(const char* texturesheet, int x, int y)
 {
-	chRen = Ren;
-	chTex = TextureManager::LoadTexture(texturesheet, chRen);
-
+	chTex = TextureManager::LoadTexture(texturesheet);
 	coord_x = x;
 	coord_y = y;
 }
@@ -13,13 +12,14 @@ GameCharacter::GameCharacter(const char* texturesheet, SDL_Renderer* Ren, int x,
 
 void GameCharacter::Update()
 {
-	srcRect.h = 100;
-	srcRect.w = 100;
+	srcRect.h = GAME_OBJ_HEIGHT;
+	srcRect.w = GAME_OBJ_WIDTH;
 	srcRect.x = 0;
 	srcRect.y = 0;
 
-	destRect.h = srcRect.h * 2;
-	destRect.w = srcRect.w * 2;
+
+	destRect.h = srcRect.h;
+	destRect.w = srcRect.w;
 	destRect.x = coord_x;
 	destRect.y = coord_y;
 	
@@ -27,9 +27,7 @@ void GameCharacter::Update()
 
 void GameCharacter::Render()
 {
-	SDL_RenderClear(chRen);
-	SDL_RenderCopy(chRen, chTex, &srcRect, &destRect);
-	SDL_RenderPresent(chRen);
+	SDL_RenderCopy(Game::Renderer, chTex, &srcRect, &destRect);
 }
 
 int GameCharacter::getx()
@@ -72,7 +70,3 @@ void GameCharacter::sethealth(int new_health)
 	health = new_health;
 }
 
-void GameCharacter::dig()
-{
-
-}

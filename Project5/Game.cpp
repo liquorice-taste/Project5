@@ -1,111 +1,215 @@
-#include "Game.h"
+/* "Copyright 2017 <Caroline Gafiullova>" */
 
-Digger* digger;
+#include "Game.h"
+#include "Define.h"
+#include "Collision.h"
+#include "Paths.h"
+#include <vector>
+#include "Components.h"
+
+/*
+
+//s = std::to_string(col); (from int to string)
+
+WAY TO CHANGE COLOR OF THE SCREEN AT THE BONUS MODE
+SDL_SetRenderTarget(r, destiny);
+SDL_SetBlendMod(r, SDL_BLENDMODE_NONE);
+SDL_RenderCopy(r, source, destiny);
+SDL_SetBlendMod(r, SDL_BLENDMODE_BLEND);
+for( Each mask as m){ 
+SDL_SetColorMod(m, c[i].r, c[i].g, c[i].b);
+SDL_RenderCopy(r, source, destiny);
+}
+*/
+
+
+
+/*TODO: ANIMATION CONTROLLER
+  MAP LOADING FROM FILE
+  COLLISION (AABB)
+  ENEMIES LOGIC
+
+  Code improvemet::
+  Copyable and Movable Types
+*/
+
+SDL_Renderer* Game::Renderer = nullptr;
+Manager manager;
+SDL_Event Game::Event;
+bool Game::running;
+Path* pathmap = NULL;
+std::vector<CollisionComponent*> Game::colliderlist;
+
+//std::vector <std::vector<std::pair<int, char>>> Game::pathmap;
+
+auto& player(manager.addEntity());
+
+//auto& enemy(manager.addEntity());
+//auto& enemy1(manager.addEntity());
+auto& gem(manager.addEntity());
+
+enum GroupLabels : std::size_t {
+  groupGems,
+  groupEnemies
+};
+
+auto& enemies(manager.GetGroup(groupEnemies));
+auto& gems(manager.GetGroup(groupGems));
 
 Game::Game() {
-
-	Window = NULL;
-	Renderer = NULL;
-	running = true;
+  Window = NULL;
+  Game::Renderer = NULL;
+  Game::running = true;
 }
 
 int Game::OnExecute() {
-	if (!OnInit())
-	{
-		return 1;
-		
-	}
-	else
-	{
-		SDL_Event Event;
-		while (running)
-		{
-			FrameStart = SDL_GetTicks();
+  if (!OnInit()) { return 1;
+  }  else  {
+    while (running)  {
+      FrameStart = SDL_GetTicks();
 
-			//Events
-			OnLoop();
-			OnRender();
+      OnLoop();
+      OnRender();
 
-			FrameTime = SDL_GetTicks() - FrameStart;
-			if (FrameDelay > FrameTime) {
-				SDL_Delay(FrameDelay - FrameTime);
-			}
-		}
-		OnCleanup();
-		return 0;
-	}
+      FrameTime = SDL_GetTicks() - FrameStart;
+
+      if (FrameDelay > FrameTime) {
+        SDL_Delay(FrameDelay - FrameTime);
+      }
+    }
+    OnCleanup();
+    return 0;
+  }
 }
 
-	int main(int argc, char* argv[]) {
-		Game *theDigger = new Game();
-		return theDigger->OnExecute();
-	}
+bool Game::OnInit() {
+  if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+    std::cout << "SDL could not be initialized" << SDL_GetError << std::endl;
+    return false;
+  }  else  {
+    Window = SDL_CreateWindow("DIGGER", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, GAME_FIELD_WIDTH, SCREEN_HEIGHT + INFO_FIELD_HEIGHT, NULL);  // SDL_WINDOW_FULLSCREEN_DESKTOP
+    
+    if (Window == NULL)	 {
+      printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+      return false;
+    } else {
+      Game::Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED);
+      if (Game::Renderer) {
+        SDL_SetRenderDrawColor(Game::Renderer, 0, 0, 0, 0);
+      }
+    }
 
-	
+    pathmap = new Path();
+
+    Entity* enemyhi;
+    //auto& enemy(manager.addEntity());
+    std::vector<Entity*> enemiesvec;
+    enemiesvec.resize(11);
+    
+    enemyhi = Game::initEnemy(100, 100);
+    enemiesvec.push_back(enemyhi);
+    
+
+    enemyhi->addGroup(groupGems);
+    //enemiesvec.at(1)->addGroup(groupEnemies);
+    gem.addGroup(groupGems);
+
+    pathmap->loadPaths("../Levels/lvl1.txt");
+  }
+  return true;
+}
+
+Vector2D Game::GetDiggerPos() {
+  return player.getComponent<TransformComponent>().position;
+}
+
+void Game::initDigger(const float &x, const float &y) {
+  player.addComponent<TransformComponent>(x, y);
+  player.addComponent<SpriteComponent>("../Images/DIGGER.BMP", 6, DOWN);
+  player.addComponent<EventController>();
+  player.addComponent<CollisionComponent>("digger");
+  player.addComponent<ScoreComponent>();
+  player.addComponent<LevelComponent>();
+}
 
 
-	bool Game::OnInit() {
+Entity* Game::initEnemy(const float &x, const float &y) {
+  auto& enemy(manager.addEntity());
+    enemy.addComponent<TransformComponent>(x, y);
+    enemy.addComponent<SpriteComponent>("../Images/NOBBIN.BMP", 3, LEFT);
+    enemy.addComponent<CollisionComponent>("enemy");
+    enemy.addComponent<EnemyAI>();
+    manager.AddToGroup(&enemy, groupEnemies);
+    return &enemy;
+}
 
-		if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-		{
-			std::cout << "SDL could not be initialized" << SDL_GetError << std::endl;
-			return false;
-		}
-		else
-		{
-			Window = SDL_CreateWindow("DIGGER", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, NULL); //SDL_WINDOW_FULLSCREEN_DESKTOP
+int i;
 
-			if (Window == NULL)
-			{
-				printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
-				return false;
-			}
-			else
-			{
-				Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED);
-				if (Renderer) {
-					SDL_SetRenderDrawColor(Renderer, 0, 255, 255, 255);
-				}
-			}
-			digger = new Digger("C:/Users/Beautiful/Desktop/Digger/BMPS/VEMERALD.bmp", Renderer, 25, 25);
-			
-		}
-		return true;
-	}
+void Game::initGem(const float &x, const float &y) {
+  gem.addComponent<TransformComponent>(x, y);
+  gem.addComponent<SpriteComponent>("../Images/VEMERALD.BMP", 1, LEFT);
+  //std::string s = std::to_string(i) + "gem";
+  //const char* f = s.c_str();
+  //printf("%s", f);
+ // i += 1;
+  gem.addComponent<CollisionComponent>("gem");
+  manager.AddToGroup(&gem, groupGems);
+}
 
-	void Game::OnLoop() {
-		
-		/*TEST CODE STARTS HERE
-		SDL_Texture* texture = IMG_LoadTexture(Renderer, "C:/Users/Beautiful/Desktop/Digger/BMPS/VEMERALD.bmp");
-		SDL_Rect texture_rect;
-		texture_rect.x = 0+i;  //the x coordinate
-		texture_rect.y = 0+i; // the y coordinate
-		texture_rect.w = 50; //the width of the texture
-		texture_rect.h = 50;
+void Game::OnLoop() {
+  manager.refresh();
+  manager.update();
 
-		SDL_RenderClear(Renderer);
-		SDL_RenderCopy(Renderer, texture, NULL, &texture_rect);
-		SDL_RenderPresent(Renderer);
-		TEST CODE ENDS HERE*/
-		
-		digger->Update();
-	}
+  for (auto *cc : colliderlist)
+  {
+    if (player.getComponent<CollisionComponent>().tag_ != cc->tag_)
+      if (Collision::CollisionCheck(player.getComponent<CollisionComponent>().collider_, cc->collider_)) {
+        //strncmp(cc->tag_, "gem", 3);
+        //if (cc->tag_ == "gem") {
+        if (cc->tag_ == "gem") {
+          printf("%s", cc->tag_);
+          player.getComponent<ScoreComponent>().score += 25;
+          
+          cc->entity->destroy();
+          continue;
+        }
+        if (cc->tag_ == "enemy") {
+          printf("colliding enemy");
+          player.getComponent<ScoreComponent>().lives -= 1;
+          cc->entity->destroy();
+          
+          continue;
+        }
+      }
+  }
+}
 
-	void Game::OnRender() {
-		//SDL_RenderClear(Renderer);
-		digger->Render();
-		SDL_RenderPresent(Renderer);
-	}
+void Game::OnRender() {
+  SDL_RenderClear(Game::Renderer);
+  pathmap->DrawMap();
+  player.draw();
+  for (auto& t : enemies) {
+    t->draw();
+  }
+  for (auto& g : gems) {
+    g->draw();
+  }
+  SDL_RenderPresent(Game::Renderer);
+}
 
-	void Game::OnCleanup() {
+void Game::OnCleanup() {
+  SDL_DestroyWindow(Window);
+  Window = NULL;
 
-		SDL_DestroyWindow(Window);
-		Window = NULL;
+  SDL_DestroyRenderer(Game::Renderer);
+  Game::Renderer = NULL;
 
-		SDL_DestroyRenderer(Renderer);
-		Renderer = NULL;
+  IMG_Quit();
+  SDL_Quit();
+}
 
-		IMG_Quit();
-		SDL_Quit();
 
-	}
+int main(int argc, char* argv[]) {
+  Game *theDigger = new Game();
+  return theDigger->OnExecute();
+}

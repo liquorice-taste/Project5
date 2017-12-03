@@ -4,18 +4,19 @@
 #include "Game.h"
 enum direction { Up, Down, Left, Right };
 
-class GameCharacter
-{
+class GameCharacter {
 protected:
 	direction direct;
 	int coord_x, coord_y, health;
-	
+	SDL_Texture* chTex;
+	SDL_Rect srcRect, destRect;
+	//SDL_Renderer* Ren;
 public:
-	GameCharacter(const char* texturesheet, SDL_Renderer* Ren, int x, int y);
+	GameCharacter(const char* texturesheet, int x, int y);
 	virtual ~GameCharacter() = 0 {};
 
 	void Update();
-	void Render(); 
+	void Render();
 
 	int getx();
 	int gety();
@@ -26,20 +27,13 @@ public:
 	void sety(int);
 	void setdirection(direction);
 	void sethealth(int);
-
-	void dig();
-
 private:
-	SDL_Texture* chTex;
-	SDL_Rect srcRect, destRect;
-	SDL_Renderer* chRen;
-
 };
 
 class Digger : public GameCharacter
 {
 public:
-	Digger(const char* texturesheet, SDL_Renderer* Ren, int x, int y) : GameCharacter(texturesheet, Ren, x, y) {};
+	Digger(const char* texturesheet,int x, int y) : GameCharacter(texturesheet, x, y) {};
 private:
 
 };
