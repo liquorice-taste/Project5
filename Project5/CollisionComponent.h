@@ -26,10 +26,10 @@ class CollisionComponent : public Component {
 
 
   void update() override {
-    collider_.x = static_cast<int>(transform->position.x);
-    collider_.y = static_cast<int>(transform->position.y);
-    collider_.h = transform->width * transform->scale;
-    collider_.w = transform->height * transform->scale;
+    collider_.x = static_cast<int>(transform->position.x-1);
+    collider_.y = static_cast<int>(transform->position.y)-1;
+    collider_.h = transform->width * transform->scale-1;
+    collider_.w = transform->height * transform->scale-1;
   }
 };
 

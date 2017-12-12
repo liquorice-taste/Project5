@@ -3,7 +3,7 @@
   <Class Name="GameCharacter" Collapsed="true">
     <Position X="1.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAEAAAACAIAAYAAAAMAAAAAAAAAAAAYRCQAiBAQgg=</HashCode>
+      <HashCode>AAQAEAAAAAAIIAYAAAAMAAAAAAAAAAAAYBCQAiAAQgg=</HashCode>
       <FileName>GameCharacter.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -17,14 +17,14 @@
   <Class Name="Game" Collapsed="true">
     <Position X="3.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACICAAAAAAAAAQBAAEAAAAAQAAgEAAQAAACAKIAAAAA=</HashCode>
+      <HashCode>ACIiAAAAAAAAAQBAAQAAAAAQAggEAAYAABCBKIAAAgA=</HashCode>
       <FileName>Game.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TextureManager" Collapsed="true">
+  <Class Name="TextureManager">
     <Position X="6" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAEAAAAAAAAAAABAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>TextureManager.h</FileName>
     </TypeIdentifier>
   </Class>

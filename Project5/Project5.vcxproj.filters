@@ -91,7 +91,7 @@
     <ClInclude Include="ScoreComponent.h">
       <Filter>Header Files\EntityComponentSystem</Filter>
     </ClInclude>
-    <ClInclude Include="LevelComponent.h">
+    <ClInclude Include="LevelManager.h">
       <Filter>Header Files\EntityComponentSystem</Filter>
     </ClInclude>
   </ItemGroup>

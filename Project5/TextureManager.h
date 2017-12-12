@@ -7,7 +7,7 @@
 
 class TextureManager {
  public:
-  static SDL_Texture* LoadTexture(const char* file);
+  static SDL_Texture* LoadTexture(std::string file);
   static void DrawTexture(SDL_Texture* Tex, SDL_Rect srcRect, SDL_Rect destRect);
   static void DrawWord(std::string &word, Vector2D vec, SDL_Texture* Tex);
 };

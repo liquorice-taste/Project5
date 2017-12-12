@@ -1,8 +1,9 @@
 #include "TextureManager.h"
 #include "Game.h"
 
-SDL_Texture* TextureManager::LoadTexture(const char* file) {
-  SDL_Surface* Surf = IMG_Load(file);
+SDL_Texture* TextureManager::LoadTexture(std::string file) {
+
+  SDL_Surface* Surf = IMG_Load(file.c_str());
   SDL_SetColorKey(Surf, SDL_TRUE, SDL_MapRGB(Surf->format, 255, 0, 255));  // 255, 0, 255 - Magenta background color
   SDL_Texture* Tex = SDL_CreateTextureFromSurface(Game::Renderer, Surf);
   SDL_FreeSurface(Surf);

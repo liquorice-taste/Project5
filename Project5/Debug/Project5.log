@@ -5,7 +5,29 @@ c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\event
 c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\eventcontroller.h(61): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\eventcontroller.h(72): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\eventcontroller.h(73): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\eventcontroller.h(84): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\eventcontroller.h(85): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\eventcontroller.h(86): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(49): warning C4228: nonstandard extension used: qualifiers after comma in declarator list are ignored
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(78): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(79): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(80): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(81): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(83): warning C4018: '<': signed/unsigned mismatch
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(84): warning C4018: '<': signed/unsigned mismatch
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(96): warning C4244: 'argument': conversion from 'float' to 'std::array<std::array<int,16>,11>::size_type', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(96): warning C4244: 'argument': conversion from 'float' to 'std::array<int,16>::size_type', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(100): warning C4244: 'argument': conversion from 'float' to 'std::array<std::array<int,16>,11>::size_type', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(100): warning C4244: 'argument': conversion from 'float' to 'std::array<int,16>::size_type', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(116): warning C4244: 'argument': conversion from 'float' to 'std::array<std::array<int,16>,11>::size_type', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(116): warning C4244: 'argument': conversion from 'float' to 'std::array<int,16>::size_type', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(118): warning C4244: 'argument': conversion from 'float' to 'std::array<std::array<int,16>,11>::size_type', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(118): warning C4244: 'argument': conversion from 'float' to 'std::array<int,16>::size_type', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(122): warning C4244: 'argument': conversion from 'float' to 'std::array<std::array<int,16>,11>::size_type', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(122): warning C4244: 'argument': conversion from 'float' to 'std::array<int,16>::size_type', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(123): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(124): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(128): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(129): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\beautiful\documents\visual studio 2017\projects\project5\project5\enemyai.h(142): warning C4018: '<': signed/unsigned mismatch
   Project5.vcxproj -> C:\Users\Beautiful\documents\visual studio 2017\Projects\Project5\Debug\Project5.exe
   Project5.vcxproj -> C:\Users\Beautiful\documents\visual studio 2017\Projects\Project5\Debug\Project5.pdb (Partial PDB)

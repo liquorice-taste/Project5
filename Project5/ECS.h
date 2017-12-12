@@ -122,6 +122,7 @@ class Manager {
         return !mEntity->isActive() || !mEntity->hasGroup(i);
       }),
         std::end(v));
+      
     }
 
     entities.erase(std::remove_if(std::begin(entities), std::end(entities),

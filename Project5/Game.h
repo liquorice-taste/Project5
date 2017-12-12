@@ -2,7 +2,6 @@
 #define PROJECT5_GAME_H_
 
 #include <stdio.h>
-// #include <functional>
 #include <map>
 #include <typeinfo>
 #include <SDL.h>
@@ -35,12 +34,12 @@ class Game {
 
   bool isrunning() { return running; }
 
-  //static std::vector<CollisionComponent*> colliderlist;
-
   static Vector2D GetDiggerPos();
   static void initDigger(const float &x, const float &y);
-  Entity* initEnemy(const float &x, const float &y);
-  static void initGem(const float &x, const float &y);
+  static Entity* initEnemy(const float &x, const float &y);
+  static Entity* initGem(const float &x, const float &y);
+  static void Game::callE(int x, int y);
+  static void Game::callG(const float &x, const float &y);
 
   static std::vector<CollisionComponent*> colliderlist;
   static bool running;

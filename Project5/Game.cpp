@@ -24,10 +24,11 @@ SDL_RenderCopy(r, source, destiny);
 
 
 
-/*TODO: ANIMATION CONTROLLER
-  MAP LOADING FROM FILE
-  COLLISION (AABB)
-  ENEMIES LOGIC
+/*TODO: 
+  ANIMATION CONTROLLER +++
+  MAP LOADING FROM FILE +++
+  COLLISION (AABB) +++
+  ENEMIES LOGIC +++
 
   Code improvemet::
   Copyable and Movable Types
@@ -40,13 +41,9 @@ bool Game::running;
 Path* pathmap = NULL;
 std::vector<CollisionComponent*> Game::colliderlist;
 
-//std::vector <std::vector<std::pair<int, char>>> Game::pathmap;
-
 auto& player(manager.addEntity());
-
-//auto& enemy(manager.addEntity());
-//auto& enemy1(manager.addEntity());
 auto& gem(manager.addEntity());
+auto& enemy(manager.addEntity());
 
 enum GroupLabels : std::size_t {
   groupGems,
@@ -87,7 +84,7 @@ bool Game::OnInit() {
     std::cout << "SDL could not be initialized" << SDL_GetError << std::endl;
     return false;
   }  else  {
-    Window = SDL_CreateWindow("DIGGER", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, GAME_FIELD_WIDTH, SCREEN_HEIGHT + INFO_FIELD_HEIGHT, NULL);  // SDL_WINDOW_FULLSCREEN_DESKTOP
+    Window = SDL_CreateWindow("DIGGER", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, GAME_FIELD_WIDTH, SCREEN_HEIGHT, NULL);  // SDL_WINDOW_FULLSCREEN_DESKTOP
     
     if (Window == NULL)	 {
       printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
@@ -100,21 +97,14 @@ bool Game::OnInit() {
     }
 
     pathmap = new Path();
+    player.addComponent<LevelManager>();
+    pathmap->loadPaths(player.getComponent<LevelManager>().getlvlfilename());
 
-    Entity* enemyhi;
-    //auto& enemy(manager.addEntity());
-    std::vector<Entity*> enemiesvec;
-    enemiesvec.resize(11);
-    
-    enemyhi = Game::initEnemy(100, 100);
-    enemiesvec.push_back(enemyhi);
-    
+    Game::initEnemy(140, 0)->addGroup(groupEnemies);
+    Game::initGem(0, 70)->addGroup(groupGems);
 
-    enemyhi->addGroup(groupGems);
-    //enemiesvec.at(1)->addGroup(groupEnemies);
-    gem.addGroup(groupGems);
-
-    pathmap->loadPaths("../Levels/lvl1.txt");
+    //gem.addGroup(groupGems);
+    //enemy.addGroup(groupEnemies);
   }
   return true;
 }
@@ -129,68 +119,75 @@ void Game::initDigger(const float &x, const float &y) {
   player.addComponent<EventController>();
   player.addComponent<CollisionComponent>("digger");
   player.addComponent<ScoreComponent>();
-  player.addComponent<LevelComponent>();
+}
+
+void Game::callE(int x, int y) {
+  Game::initEnemy(float(x), float(y))->addGroup(groupEnemies);
+}
+
+void Game::callG(const float &x, const float &y) {
+  Game::initGem(x, y)->addGroup(groupGems);
 }
 
 
 Entity* Game::initEnemy(const float &x, const float &y) {
   auto& enemy(manager.addEntity());
-    enemy.addComponent<TransformComponent>(x, y);
-    enemy.addComponent<SpriteComponent>("../Images/NOBBIN.BMP", 3, LEFT);
-    enemy.addComponent<CollisionComponent>("enemy");
-    enemy.addComponent<EnemyAI>();
-    manager.AddToGroup(&enemy, groupEnemies);
-    return &enemy;
+  enemy.addComponent<TransformComponent>(x, y);
+  enemy.addComponent<SpriteComponent>("../Images/NOBBIN.BMP", 3, LEFT);
+  enemy.addComponent<CollisionComponent>("enemy");
+  enemy.addComponent<EnemyAI>();
+  //manager.AddToGroup(&enemy, groupEnemies);
+  return &enemy;
 }
 
-int i;
-
-void Game::initGem(const float &x, const float &y) {
+Entity* Game::initGem(const float &x, const float &y) {
+  auto& gem(manager.addEntity());
   gem.addComponent<TransformComponent>(x, y);
   gem.addComponent<SpriteComponent>("../Images/VEMERALD.BMP", 1, LEFT);
-  //std::string s = std::to_string(i) + "gem";
-  //const char* f = s.c_str();
-  //printf("%s", f);
- // i += 1;
   gem.addComponent<CollisionComponent>("gem");
-  manager.AddToGroup(&gem, groupGems);
+  //manager.AddToGroup(&gem, groupGems);
+  return &gem;
 }
 
 void Game::OnLoop() {
   manager.refresh();
   manager.update();
-
+  
+  //for (auto *f : manager.GetGroup(groupEnemies)) {
+  //  &f->destroy;
+  //}
+  //NEED TO FIND ANOTHER WAY OF COPING WITH DELETING ALL ENEMIES
+  /*
   for (auto *cc : colliderlist)
   {
     if (player.getComponent<CollisionComponent>().tag_ != cc->tag_)
+    {
       if (Collision::CollisionCheck(player.getComponent<CollisionComponent>().collider_, cc->collider_)) {
-        //strncmp(cc->tag_, "gem", 3);
-        //if (cc->tag_ == "gem") {
         if (cc->tag_ == "gem") {
-          printf("%s", cc->tag_);
           player.getComponent<ScoreComponent>().score += 25;
-          
           cc->entity->destroy();
           continue;
         }
         if (cc->tag_ == "enemy") {
-          printf("colliding enemy");
           player.getComponent<ScoreComponent>().lives -= 1;
           cc->entity->destroy();
-          
           continue;
         }
       }
-  }
+    }
+  }*/
 }
 
 void Game::OnRender() {
+
   SDL_RenderClear(Game::Renderer);
   pathmap->DrawMap();
   player.draw();
-  for (auto& t : enemies) {
-    t->draw();
+  //&player.getComponent<TransformComponent>().velocity.Zero();
+  for (auto& g : enemies) {
+    g->draw();
   }
+
   for (auto& g : gems) {
     g->draw();
   }

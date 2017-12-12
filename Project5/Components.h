@@ -11,6 +11,6 @@
 #include "CollisionComponent.h"
 #include "EnemyAI.h"
 #include "ScoreComponent.h"
-#include "LevelComponent.h"
+#include "LevelManager.h"
 
 //#endif  // PROJECT5_COLLISIONCOMPONENT_H_
